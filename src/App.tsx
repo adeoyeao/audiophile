@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
 
-function App() {
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import { Heading1, Heading2, Heading3 } from './Shared/Heading'
+import { Button } from './Shared/Button'
+import { ShopButton } from './Shared/ShopButton'
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Heading1
+        fontSize='extraLarge'
+        color='orange'
+        alignment='left'
+      >Hello</Heading1>
+      <Heading2
+        fontSize='large'
+        color='orange'
+        alignment='left'
+      >Hello</Heading2>
+      <Heading3
+        fontSize='medium'
+        color='orange'
+        alignment='left'
+      >Hello</Heading3>
+      <Button primary>Hello World</Button>
+      <Button>Hello World</Button>
+      <ShopButton />
+    </Router>
+  )
 }
 
 export default App;
