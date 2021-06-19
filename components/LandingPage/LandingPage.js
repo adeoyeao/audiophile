@@ -56,7 +56,7 @@ const LandingPage = (props) => {
     }
 
     const handleClick = () => {
-        router.push('/products/headphones')
+        router.push('/products/headphones/xx99')
     }
 
     useEffect(() => {

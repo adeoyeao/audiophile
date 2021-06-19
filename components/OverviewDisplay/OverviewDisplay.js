@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import theme from '../../theme'
 import { Text, Button } from '../../components'
+import { useRouter } from 'next/router'
 
 const productOptions = {
     zx9: `
@@ -134,14 +135,16 @@ const products = [
         ref: 'zx9',
         name: 'ZX9 Speaker',
         text: 'Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.',
-        link: 'zx9-speaker',
+        url: 'zx9',
+        query: 'speakers',
         textType: 'primary',
         color: theme.colors.white
     },
     {
         ref: 'zx7',
         name: 'ZX7 Speaker',
-        link: 'zx7-speaker',
+        url: 'zx7',
+        query: 'speakers',
         textType: 'secondary',
         color: theme.colors.black
     },
@@ -151,13 +154,20 @@ const products = [
     {
         ref: 'yx1_b',
         name: 'YX1 Earphones',
-        link: 'yx1-earphones',
+        url: 'yx1',
+        query: 'earphones',
         textType: 'secondary',
         color: theme.colors.black
     }
 ]
 
 const OverviewDisplay = () => {
+    const router = useRouter() 
+
+    const handleClick = (query, product) => {
+        router.push(`/products/${query}/${product}`)
+    }
+
     return (
         <StyledSection>
             { products.map(product => (
@@ -181,10 +191,11 @@ const OverviewDisplay = () => {
                     />
                     }
                     {
-                        product.link && 
+                        product.query && product.url && 
                         <Button 
                             buttonType='secondary'
                             label='See Product'
+                            handleClick={() => handleClick(product.query, product.url)}
                         />
                     }
                 </Card>

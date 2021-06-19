@@ -1,6 +1,7 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import theme from '../theme'
 import { Ribbons } from '../components'
+import Store from '../store'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -23,15 +24,19 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-export default function App({ Component, pageProps }) {
+const App = ({ Component, pageProps }) => {
   return (
     <>
       <GlobalStyle />
+      <Store>
       <ThemeProvider theme={theme}>
         <Ribbons>
           <Component {...pageProps} ></Component>
         </Ribbons>
       </ThemeProvider>
+      </Store>
     </>
   )
 }
+
+export default App

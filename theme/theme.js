@@ -9,10 +9,10 @@ const theme = {
       darkGrey: '#7D7D7D',
     },
     fontSizes: {
-      extraLarge: '4.5rem',
+      extraLarge: '4rem',
       large: '3rem',
       medium: '2rem',
-      small: '1.25rem',
+      small: '1rem',
       extraSmall: '0.75rem',
     }
   }

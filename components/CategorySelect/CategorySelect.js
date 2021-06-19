@@ -7,6 +7,7 @@ const CategorySection = styled.section`
     padding: 3rem 10vw;
     display: grid;
     grid-gap: 1rem;
+    width: 100%;
 
     @media screen and (min-width: 768px) {
         grid-template-columns: repeat(3, 1fr);
@@ -53,7 +54,7 @@ const CategorySelect = () => {
     const categories = ['headphones', 'speakers', 'earphones']
     const router = useRouter()
 
-    const handleClick = (category) => {
+    const handleClick = (category) => { 
         router.push(`/products/${category}`)
     }
 
@@ -71,7 +72,7 @@ const CategorySelect = () => {
                             <Button 
                                 label='SHOP'
                                 buttonType='tertiary'
-                                // onClick={() => handleClick(category)}
+                                handleClick={() => handleClick(category)}
                             />
                         </div>
                     </CategoryCard>
