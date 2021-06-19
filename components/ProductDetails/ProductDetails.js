@@ -24,7 +24,7 @@ const StyledMain = styled.main`
 
     .productInfo {
         display: grid;
-        grid-gap: 2rem;
+        grid-gap: 3rem;
 
         .productImage {
             height: 320px;
@@ -38,6 +38,89 @@ const StyledMain = styled.main`
             flex-direction: column;
             grid-gap: 1rem;
             justify-content: center;
+
+            .addToCart {
+                display: flex;
+                grid-gap: 1rem;
+                align-items: center;
+
+                form { 
+                    height: 100%;
+                    background: ${theme.colors.lightGrey};
+
+                    button {
+                        background: none;
+                        cursor: pointer;
+                        width: 2rem;
+                        height: 2rem;
+                        font-size: 2rem;
+                    }
+                }
+
+                input {
+                    height: 100%;
+                    padding: 0.25rem;
+                    width: 4rem;
+                    background: none;
+                    appearance: none;
+                    outline: none;
+                    border: none;
+                    text-align: center;
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+
+    .features {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 2rem;
+
+        div, span {
+            display: flex;
+            flex-direction: column;
+            grid-gap: 1rem;
+        }
+    }
+
+    .images {
+        display: grid;
+        grid-gap: 2rem;
+        grid-template-rows: 1fr 1fr 2fr;
+        grid-template-areas: 
+        "image1"
+        "image2"
+        "image3"
+        "image3";
+        width: 100%;
+
+        div {
+            border-radius: 0.5rem;
+        }
+
+        .image1 {
+            height: 180px;
+            background-image: ${props => `url("/product-${props.product}-${props.category}/mobile/image-gallery-1.jpg")`};
+            background-size: cover;
+            background-position: center;
+            grid-area: image1;
+        }
+
+        .image2 {
+            height: 180px;
+            background-image: ${props => `url("/product-${props.product}-${props.category}/mobile/image-gallery-2.jpg")`};
+            background-size: cover;
+            background-position: center;
+            grid-area: image2;
+        }
+
+        .image3 {
+            height: 360px;
+            background-image: ${props => `url("/product-${props.product}-${props.category}/mobile/image-gallery-3.jpg")`};
+            background-size: cover;
+            background-position: center;
+            grid-area: image3;
         }
     }
 
@@ -52,13 +135,83 @@ const StyledMain = styled.main`
                 background-position: center;
             }
         }
+
+        .features {
+            .inTheBox {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas:
+            "image1 image3"
+            "image2 image3";
+
+            .image1 {
+                height: 180px;
+                background-image: ${props => `url("/product-${props.product}-${props.category}/tablet/image-gallery-1.jpg")`};
+                background-size: cover;
+                background-position: center;
+            }
+    
+            .image2 {
+                height: 180px;
+                background-image: ${props => `url("/product-${props.product}-${props.category}/tablet/image-gallery-2.jpg")`};
+                background-size: cover;
+                background-position: center;
+            }
+    
+            .image3 {
+                height: 100%;
+                background-image: ${props => `url("/product-${props.product}-${props.category}/tablet/image-gallery-3.jpg")`};
+                background-size: cover;
+                background-position: center;
+            }
+        }
     }
 
-    @mnedia screen and (min-width: 1200px) {
+    @media screen and (min-width: 1200px) {
         .productInfo {
             .productImage {
                 height: 560px;
                 background-image: ${props => `url("/product-${props.product}-${props.category}/desktop/image-product.jpg")`};
+                background-size: cover;
+                background-position: center;
+            }
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-gap: 3rem;
+
+            .inTheBox {
+                display: flex;
+            }
+        }
+
+        .images {
+            .image1 {
+                height: 280px;
+                background-image: ${props => `url("/product-${props.product}-${props.category}/desktop/image-gallery-1.jpg")`};
+                background-size: cover;
+                background-position: center;
+            }
+    
+            .image2 {
+                height: 280px;
+                background-image: ${props => `url("/product-${props.product}-${props.category}/desktop/image-gallery-2.jpg")`};
+                background-size: cover;
+                background-position: center;
+            }
+    
+            .image3 {
+                height: 100%;
+                background-image: ${props => `url("/product-${props.product}-${props.category}/desktop/image-gallery-3.jpg")`};
                 background-size: cover;
                 background-position: center;
             }
@@ -80,11 +233,18 @@ const ProductDetails = (props) => {
         currency: 'GBP'
     })
 
-    const upCount = () => setCount(count + 1);
-    const downCount = () => setCount(count - 1);
+    const upCount = (e) => { e.preventDefault(); setCount(count + 1) };
+    const downCount = (e) => { 
+        e.preventDefault();
+        if(count === 0) {
+            return
+        } 
+        setCount(count - 1) 
+    };
 
     const handleClick = () => {
         dispatch({ type: 'ADD_ITEMS', name: productData.ref, quantity: count })
+        setCount(0)
     }
 
     useEffect(() => console.log(state), [state])
@@ -102,7 +262,7 @@ const ProductDetails = (props) => {
                         textType='tertiary'
                         text='NEW PRODUCT'
                         color={theme.colors.primary}
-                    />}
+                    /> }
                     <Text 
                         textType='secondary'
                         text={productData.name}
@@ -110,17 +270,61 @@ const ProductDetails = (props) => {
                     <Text 
                         textType='tertiary'
                         text={productData.description}
+                        color={theme.colors.darkGrey}
                     />
                     <h3>{formatter.format(productData.price)}</h3>
-                    <span>
+                    <div className='addToCart'>
+                        <form>
+                            <button className='downBtn' onClick={downCount}>-</button>
+                            <input value={count}/>
+                            <button className='upBtn' onClick={upCount}>+</button>
+                        </form>
                         <Button 
                             buttonType='primary'
                             label='Add to Cart'
                             handleClick={handleClick}
                         />
-                    </span>
+                    </div>
                 </div>
             </div>
+            <section className='features'>
+                <div>
+                    <Text 
+                        textType='secondary'
+                        text='Features'
+                    />
+                    <Text 
+                        textType='tertiary'
+                        text={productData.features1}
+                        color={theme.colors.darkGrey}
+                    />
+                    <Text 
+                        textType='tertiary'
+                        text={productData.features2}
+                        color={theme.colors.darkGrey}
+                    />
+                </div>
+                <div className='inTheBox'>
+                    <Text 
+                        textType='secondary'
+                        text='In the Box'
+                    />
+                    <span>
+                    { productData.inTheBox.map(item => (
+                        <Text 
+                            textType='tertiary'
+                            text={`${item.quantity}x ${item.description}`}
+                            color={theme.colors.primary}
+                        />
+                    )) }
+                    </span>
+                </div>
+            </section>
+            <section className='images'>
+                <div className='image1' />
+                <div className='image2' />
+                <div className='image3' />
+            </section>
         </StyledMain>
     )
 }

@@ -30,7 +30,8 @@
                     "quantity": 1,
                     "description": "Travel Bag"
                 }
-            ]
+            ],
+            "similar": ["xx99_mark_one", "xx59", "zx9"]
         },
         {
             "id": 1,
@@ -58,7 +59,8 @@
                     "quantity": 1,
                     "description": "3.5mm 5m Audio Cable"
                 }
-            ]
+            ],
+            "similar": ["xx99_mark_two", "xx59", "zx9"]
         },
         {
             "id": 2,
@@ -86,7 +88,8 @@
                     "quantity": 1,
                     "description": "3.5mm 5m Audio Cable"
                 }
-            ]
+            ],
+            "similar": ["xx99_mark_two", "xx99_mark_one", "zx9"]
         }
     ],
     "speakers": [
@@ -120,7 +123,8 @@
                     "quantity": 1,
                     "description": "10m Optical Cable"
                 }
-            ]
+            ],
+            "similar": ["zx7", "xx99_mark_one", "xx59"]
         },
         {
             "id": 1,
@@ -152,7 +156,8 @@
                     "quantity": 1,
                     "description": "7.5m Optical Cable"
                 }
-            ]
+            ],
+            "similar": ["zx9", "xx99_mark_one", "xx59"]
         }
     ],
     "earphones": [
@@ -186,7 +191,8 @@
                     "quantity": 1,
                     "description": "Travel Pouch"
                 }
-            ]
+            ],
+            "similar": ["xx99_mark_one", "xx59", "zx9"]
         }
     ]
 }
