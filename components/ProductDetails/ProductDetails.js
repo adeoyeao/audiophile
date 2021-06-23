@@ -1,4 +1,4 @@
-import { Text, Button } from '../../components'
+import { Text, Button, AddedToCart } from '../../components'
 import styled from 'styled-components'
 import theme from '../../theme'
 import { useRouter } from 'next/router'
@@ -223,6 +223,7 @@ const ProductDetails = (props) => {
     const router = useRouter()
     const [ state, dispatch ] = useContext(Context);
     const [ count, setCount ] = useState(0);
+    const [ visible, setVisible ] = useState(false);
 
     const products = PRODUCT_DATA[props.category].map(product => product.ref)
     const queryIndex = products.indexOf(props.product)
@@ -244,13 +245,19 @@ const ProductDetails = (props) => {
 
     const handleClick = () => {
         dispatch({ type: 'ADD_ITEMS', name: productData.ref, quantity: count })
-        setCount(0)
+        setVisible(true);
     }
 
-    useEffect(() => console.log(state), [state])
+    const closeModal = () => {
+        setVisible(false); setCount(0)
+    }
 
     return (
         <StyledMain {...props}>
+            { visible && 
+            <AddedToCart 
+            handleClick={closeModal}
+            count={count}/> }
             <button onClick={() => router.back()} className='backBtn'>
                 Go Back
             </button>
@@ -315,6 +322,7 @@ const ProductDetails = (props) => {
                             textType='tertiary'
                             text={`${item.quantity}x ${item.description}`}
                             color={theme.colors.primary}
+                            key={item}
                         />
                     )) }
                     </span>
