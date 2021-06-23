@@ -50,7 +50,7 @@ const CategoryCard = styled.div`
     }
 `
 
-const CategorySelect = () => {
+const CategorySelect = (props) => {
     const categories = ['headphones', 'speakers', 'earphones']
     const router = useRouter()
 
@@ -72,7 +72,12 @@ const CategorySelect = () => {
                             <Button 
                                 label='SHOP'
                                 buttonType='tertiary'
-                                handleClick={() => handleClick(category)}
+                                handleClick={() => { 
+                                    handleClick(category)
+                                    if(props.closeMenu) {
+                                        props.closeMenu()
+                                    }
+                                }}
                             />
                         </div>
                     </CategoryCard>

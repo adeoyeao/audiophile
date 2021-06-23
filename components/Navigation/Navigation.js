@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import theme from '../../theme'
 import Link from 'next/link'
 import { Menu } from '../../components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import useRouter from 'next'
 
 const StyledNavigation = styled.nav`
     height: 90px;
@@ -104,7 +105,7 @@ const Navigation = ({ children }) => {
             </ul>
             <button className='shoppingCart' onClick={cartClick} />
         </StyledNavigation>
-        { menuVisible && <Menu />}
+        { menuVisible && <Menu closeMenu={menuClick}/>}
         { children }
         </>
     )
