@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Text, Button } from '..'
 
 const StyledSection = styled.section`
-    background: ${theme.colors.darkGrey};
+    background: rgba(0, 0, 0, 0.75);
     position: fixed;
     top: 0;
     left: 0;

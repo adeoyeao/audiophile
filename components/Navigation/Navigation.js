@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import theme from '../../theme'
 import Link from 'next/link'
+import { Menu } from '../../components'
+import { useState } from 'react'
 
 const StyledNavigation = styled.nav`
     height: 90px;
@@ -76,10 +78,16 @@ const StyledNavigation = styled.nav`
 `
 
 const Navigation = ({ children }) => {
+    const [ menuVisible, setMenuVisible ] = useState(false)
+    const [ cartVisible, setCartVisible ] = useState(false)
+
+    const menuClick = () => setMenuVisible(!menuVisible)
+    const cartClick = () => setCartVisible(!cartVisible)
+
     return (
         <>
         <StyledNavigation>
-            <button className='hamburgerMenu' />
+            <button className='hamburgerMenu' onClick={menuClick}/>
             <Link href='/'>
                 <img src='/shared/desktop/logo.svg' className='logo'/> 
             </Link>
@@ -94,8 +102,9 @@ const Navigation = ({ children }) => {
                     <li>earphones</li>
                 </Link>
             </ul>
-            <button className='shoppingCart' />
+            <button className='shoppingCart' onClick={cartClick} />
         </StyledNavigation>
+        { menuVisible && <Menu />}
         { children }
         </>
     )
