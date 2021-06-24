@@ -1,4 +1,5 @@
-import { ADD_ITEMS, REMOVE_ITEMS } from './cartTypes'
+import { ADD_ITEMS, REMOVE_ITEMS, RESET } from './cartTypes'
+import { initialState } from '../store'
 
 const cartReducer = (state, action) => {
     const product = action.name 
@@ -12,6 +13,7 @@ const cartReducer = (state, action) => {
             ...state,
             [product]: state[product] - action.quantity
         }
+        case RESET: return initialState
         default: return state
     }
 }

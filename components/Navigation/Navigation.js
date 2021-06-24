@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import theme from '../../theme'
 import Link from 'next/link'
-import { Menu } from '../../components'
+import { Menu, Cart } from '../../components'
 import { useState, useEffect } from 'react'
 import useRouter from 'next'
 
@@ -82,8 +82,15 @@ const Navigation = ({ children }) => {
     const [ menuVisible, setMenuVisible ] = useState(false)
     const [ cartVisible, setCartVisible ] = useState(false)
 
-    const menuClick = () => setMenuVisible(!menuVisible)
-    const cartClick = () => setCartVisible(!cartVisible)
+    const menuClick = () => { 
+        setMenuVisible(!menuVisible)
+        setCartVisible(false)
+    }
+
+    const cartClick = () => { 
+        setCartVisible(!cartVisible)
+        setMenuVisible(false)
+    }
 
     return (
         <>
@@ -106,6 +113,7 @@ const Navigation = ({ children }) => {
             <button className='shoppingCart' onClick={cartClick} />
         </StyledNavigation>
         { menuVisible && <Menu closeMenu={menuClick}/>}
+        { cartVisible && <Cart closemenu={cartClick} />}
         { children }
         </>
     )

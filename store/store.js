@@ -1,7 +1,7 @@
 import cartReducer from './cart/cartReducer'
 import { createContext, useReducer } from 'react'
 
-const initialState = {
+export const initialState = {
     zx9: 0,
     zx7: 0,
     xx59: 0,
