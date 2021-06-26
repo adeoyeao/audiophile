@@ -283,7 +283,7 @@ const ProductDetails = (props) => {
                     <div className='addToCart'>
                         <form>
                             <button className='downBtn' onClick={downCount}>-</button>
-                            <input value={count}/>
+                            <input value={count} readOnly/>
                             <button className='upBtn' onClick={upCount}>+</button>
                         </form>
                         <Button 
