@@ -113,7 +113,7 @@ const Navigation = ({ children }) => {
             <button className='shoppingCart' onClick={cartClick} />
         </StyledNavigation>
         { menuVisible && <Menu closeMenu={menuClick}/>}
-        { cartVisible && <Cart closemenu={cartClick} />}
+        { cartVisible && <Cart closeMenu={cartClick} />}
         { children }
         </>
     )

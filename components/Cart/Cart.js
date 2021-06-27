@@ -2,7 +2,7 @@ import { Context } from '../../store'
 import { Text, Button } from '../../components'
 import theme from '../../theme'
 import styled from 'styled-components'
-import useRouter from 'next'
+import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import { ADD_ITEMS, REMOVE_ITEMS } from '../../store/cart/cartTypes'
 
@@ -100,6 +100,10 @@ const CartItem = styled.article`
         font-size: 2rem;
     }
 
+    h4 {
+        font-weight: normal
+    }
+
     @media screen and (min-width: 768px) {
         .itemImage {
             background-image: ${props => `url("/product-${props.item}-${props.category}/tablet/image-product.jpg")`};
@@ -123,7 +127,7 @@ const StyledForm = styled.form`
 
 `
 
-const Cart = () => {
+const Cart = (props) => {
     const router = useRouter()
     const [ state, dispatch ] = useContext(Context)
     const [ cartSize, setCartSize ] = useState()
@@ -178,6 +182,10 @@ const Cart = () => {
         dispatch({ type: REMOVE_ITEMS, name: item, quantity: 1 }) 
     };
 
+    const checkout = () =>  {
+        router.push('/checkout')
+        props.closeMenu()
+    }
 
     useEffect(() => setCartSize(Object.values(state).reduce(reducer)), [state])
 
@@ -192,10 +200,7 @@ const Cart = () => {
                         <CartItem item={item[0]} category={items[item[0]].category}>
                             <div className='itemImage' />
                             <div className='itemDetails'>
-                                <Text 
-                                textType='tertiary'
-                                text={item[0].toUpperCase().replace(/\_/ig,' ')}
-                                />
+                                <h4>{item[0].toUpperCase().replace(/\_/ig,' ')}</h4>
                                 <h3>{ formatter.format(items[item[0]].prices) }</h3>
                             </div>
                             <StyledForm>
@@ -220,7 +225,7 @@ const Cart = () => {
                 <Button 
                     buttonType='primary'
                     label='Checkout'
-                    // handleClick={checkout}
+                    handleClick={checkout}
                 />
             </div>
         </StyledSection>

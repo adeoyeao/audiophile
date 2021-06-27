@@ -1,5 +1,3 @@
-import styled from 'styled-components'
-
 import { LandingPage, CategorySelect, OverviewDisplay, About } from '../components'
 
 const Home = () => {

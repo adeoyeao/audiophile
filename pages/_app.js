@@ -3,6 +3,7 @@ import theme from '../theme'
 import { Ribbons } from '../components'
 import Store from '../store'
 
+
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
