@@ -54,21 +54,18 @@ const CheckoutForm = () => {
                 <Input 
                     label='Name'
                     placeholder='Jane Appleseed'
-                    regex={/\w{2,}/ig}
                     start={1}
                     end={2}
                 />
                 <Input 
                     label='Email Address'
                     placeholder='jane.appleseed@gmail.com'
-                    regex={/\w{2,}\@\w{2,}\.\w{1,}/ig}
                     start={2}
                     end={3}
                 />
                 <Input 
                     label='Phone Number'
                     placeholder='07500 123 123'
-                    regex={/\d{11}/ig}
                     start={1}
                     end={2}
                 />
@@ -82,28 +79,24 @@ const CheckoutForm = () => {
                 <Input 
                     label='Your Address'
                     placeholder='38 Main Street'
-                    regex={/\w{2,}/ig}
                     start={1}
                     end={3}
                 />
                 <Input 
                     label='Postcode'
                     placeholder='EC1A 1AA'
-                    regex={/\w{3,4}\ \w{2,}\.\w{1,}/ig}
                     start={1}
                     end={2}
                 />
                 <Input 
                     label='City'
                     placeholder='London'
-                    regex={/\w{2,}/ig}
                     start={2}
                     end={3}
                 />
                 <Input 
                     label='Country'
                     placeholder='United Kingdom'
-                    regex={/\w{2,}/ig}
                     start={1}
                     end={2}
                 />
@@ -117,35 +110,30 @@ const CheckoutForm = () => {
                 <Input 
                     label='Cardholder Name'
                     placeholder='Jane Appleseed'
-                    regex={/\w{2,}/ig}
                     start={1}
                     end={2}
                 />
                 <Input 
                     label='Card Number'
                     placeholder='5555 5555 5555 5555'
-                    regex={/\d{4}\ \d{4}\ \d{4}\ \d{4}/ig}
                     start={2}
                     end={3}
                 />
                 <Input 
                     label='Start Date'
                     placeholder='01/21'
-                    regex={/\d{2}\/\d{2}/ig}
                     start={1}
                     end={2}
                 />
                 <Input 
                     label='Expiry Date'
                     placeholder='01/26'
-                    regex={/\d{2}\/\d{2}/ig}
                     start={2}
                     end={3}
                 />
                 <Input 
                     label='CSC'
                     placeholder='000'
-                    regex={/\d{3,4}/ig}
                     start={1}
                     end={2}
                 />

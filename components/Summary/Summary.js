@@ -1,29 +1,18 @@
 import { Context } from '../../store'
-import { Text, Button } from '../../components'
+import { Text, Button, PaymentComplete } from '../../components'
 import theme from '../../theme'
 import styled from 'styled-components'
-import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
-import { ADD_ITEMS, REMOVE_ITEMS, RESET } from '../../store/cart/cartTypes'
 
 const StyledSection = styled.section`
-    background: rgba(0, 0, 0, 0.75);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
     width: 100vw;
-    padding: 8.5rem 10vw 3rem 10vw;
-    z-index: 20;
+    padding: 3rem 10vw;
     display: grid;
     jusfiy-items: center;
 
-    .cart {
+    .summary {
         width: 100%;
-        max-width: 500px;
-        border-radius: 0.5rem;
         background: ${theme.colors.white};
-        padding: 2rem;
         display: grid;
         grid-template-columns: 1fr auto;
         grid-template-rows: auto 1fr auto;
@@ -49,7 +38,7 @@ const StyledSection = styled.section`
     }
 
     @media screen and (min-width: 768px) {
-        .cart {
+        .summary {
             justify-self: end;
         }
     }
@@ -123,14 +112,9 @@ const CartItem = styled.article`
     }
 `
 
-const StyledForm = styled.form`
-
-`
-
-const Cart = (props) => {
-    const router = useRouter()
+const Summary = (props) => {
     const [ state, dispatch ] = useContext(Context)
-    const [ cartSize, setCartSize ] = useState()
+    const [ paid, setPaid ] = useState(true)
 
     const reducer = (acc, cv) => acc + cv
     const selectedItems = Object.entries(state).filter(item => item[1] !== 0);
@@ -168,32 +152,23 @@ const Cart = (props) => {
         style: 'currency',
         currency: 'GBP'
     })
+    const shipping = 50
+    const vat = totalReduced * 0.2
+    const grandTotal = totalReduced + shipping + vat
 
-    const upCount = (e, item) => {
-        e.preventDefault()
-        dispatch({ type: ADD_ITEMS, name: item, quantity: 1 })
+    const makePayment = () =>  {
+        setPaid(true)
     }
 
-    const downCount = (e, item) => { 
-        e.preventDefault();
-        if(state[item] === 0) {
-            return
-        } 
-        dispatch({ type: REMOVE_ITEMS, name: item, quantity: 1 }) 
-    };
+    const backToHome = () => setPaid(false)
 
-    const checkout = () =>  {
-        router.push('/checkout')
-        props.closeMenu()
-    }
-
-    useEffect(() => setCartSize(Object.values(state).reduce(reducer)), [state])
+    useEffect(() => setPaid(false), [])
 
     return (
         <StyledSection>
-            <div className='cart'>
-                <h3>Cart ({cartSize})</h3>
-                <button className='removeAllBtn' onClick={() => dispatch({ type: RESET })} >Remove All</button>
+            { paid && <PaymentComplete backToHome={backToHome}/> }
+            <div className='summary'>
+                <h3>SUMMARY</h3>
                 <div className='items'>
                 { selectedItems.map(item => {
                     return (
@@ -203,11 +178,9 @@ const Cart = (props) => {
                                 <h4>{item[0].toUpperCase().replace(/\_/ig,' ')}</h4>
                                 <h3>{ formatter.format(items[item[0]].prices) }</h3>
                             </div>
-                            <StyledForm>
-                                <button className='downBtn' onClick={(e) => downCount(e, item[0])}>-</button>
-                                <input value={state[item[0]]} readOnly/>
-                                <button className='upBtn' onClick={(e) => upCount(e, item[0])}>+</button>
-                            </StyledForm>
+                            <div>
+                                { `x ${state[item[0]]}`}
+                            </div>
                         </CartItem>
                     )
                 }) }
@@ -221,15 +194,49 @@ const Cart = (props) => {
                     textType='tertiary'
                     text={formatter.format(totalReduced)}
                     color={theme.colors.black}
+                    align='right'
+                />
+                <Text 
+                    textType='tertiary'
+                    text='SHIPPING'
+                    color={theme.colors.darkGrey}
+                />
+                <Text 
+                    textType='tertiary'
+                    text={formatter.format(shipping)}
+                    color={theme.colors.black}
+                    align='right'
+                />
+                <Text 
+                    textType='tertiary'
+                    text='VAT'
+                    color={theme.colors.darkGrey}
+                />
+                <Text 
+                    textType='tertiary'
+                    text={formatter.format(vat)}
+                    color={theme.colors.black}
+                    align='right'
+                />
+                <Text 
+                    textType='tertiary'
+                    text='GRAND TOTAL'
+                    color={theme.colors.darkGrey}
+                />
+                <Text 
+                    textType='tertiary'
+                    text={formatter.format(grandTotal)}
+                    color={theme.colors.primary}
+                    align='right'
                 />
                 <Button 
                     buttonType='primary'
-                    label='Checkout'
-                    handleClick={checkout}
+                    label='Continue & Pay'
+                    handleClick={makePayment}
                 />
             </div>
         </StyledSection>
     )
 }
 
-export default Cart
+export default Summary

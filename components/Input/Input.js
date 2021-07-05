@@ -21,7 +21,7 @@ const StyledInput = styled.div`
         appearance: none;
         width: 100%;
         background: none;
-        border: ${props => `2px solid ${props.valid ? theme.colors.darkGrey : theme.colors.primary}`}
+        border: 2px solid ${theme.colors.darkGrey};
     }
 
     @media screen and (min-width: 768px) {
@@ -30,24 +30,15 @@ const StyledInput = styled.div`
 `
 
 const Input = (props) => {
-    const [ valid, setValid ] = useState(true)
     const [ value, setValue ] = useState('')
-
-    const regex = props.regex
 
     const handleChange = (e) => {
         const value = e.target.value
         setValue(value)
-        regex.test(value) ? setValid(true) : setValid(false)
-    }
-
-    const InputProps = {
-        ...props,
-        valid: valid
     }
 
     return (
-        <StyledInput {...InputProps}>
+        <StyledInput {...props}>
             <label>{props.label}</label>
             <input 
                 placeholder={props.placeholder}
